@@ -14,6 +14,11 @@ class App extends Component {
 
     componentDidMount() {
         this.players = ["X","O"]
+        this.human = "";
+        this.newGame();
+    }
+
+    newGame() {
         this.played = {
             "one": "",
             "two": "",
@@ -27,6 +32,36 @@ class App extends Component {
         }
     }
 
+    checkWin(){
+        if(
+            (this.played["one"] === "O" && this.played["two"] === "O" && this.played["three"] === "O") ||
+            (this.played["four"] === "O" && this.played["five"] === "O" && this.played["six"] === "O") ||
+            (this.played["seven"] === "O" && this.played["eight"] === "O" && this.played["nine"] === "O") ||
+            (this.played["one"] === "O" && this.played["four"] === "O" && this.played["seven"] === "O") ||
+            (this.played["two"] === "O" && this.played["five"] === "O" && this.played["eight"] === "O") ||
+            (this.played["three"] === "O" && this.played["six"] === "O" && this.played["nine"] === "O") ||
+            (this.played["one"] === "O" && this.played["five"] === "O" && this.played["nine"] === "O") ||
+            (this.played["three"] === "O" && this.played["five"] === "O" && this.played["seven"] === "O")
+        ){
+            console.log("player O wins");
+            this.newGame();
+        }
+        else if(
+            (this.played["one"] === "X" && this.played["two"] === "X" && this.played["three"] === "X") ||
+            (this.played["four"] === "X" && this.played["five"] === "X" && this.played["six"] === "X") ||
+            (this.played["seven"] === "X" && this.played["eight"] === "X" && this.played["nine"] === "X") ||
+            (this.played["one"] === "X" && this.played["four"] === "X" && this.played["seven"] === "X") ||
+            (this.played["two"] === "X" && this.played["five"] === "X" && this.played["eight"] === "X") ||
+            (this.played["three"] === "X" && this.played["six"] === "X" && this.played["nine"] === "X") ||
+            (this.played["one"] === "X" && this.played["five"] === "X" && this.played["nine"] === "X") ||
+            (this.played["three"] === "X" && this.played["five"] === "X" && this.played["seven"] === "X")
+        ){
+            console.log("player X wins");
+            this.newGame();
+        }
+
+    }
+
     play(btn){
         var player = this.state.player;
         var players = this.players;
@@ -34,15 +69,24 @@ class App extends Component {
         console.log(player);
 
         this.played[btn] = player;
+        this.checkWin();
+        console.log(this.played)
 
         if (player === players[0]){
             this.setState({
                 player: players[1]
             });
-        }else{
+        }else if(player === players[1]){
             this.setState({
                 player: players[0]
             });
+        }
+
+    }
+
+    checkLogic(){
+        if (this.state.player !== this.human){
+            //computers turn to play
         }
     }
 
@@ -55,12 +99,14 @@ class App extends Component {
                     flag: "play",
                     player: "O"
                 })
+                this.human = "O";
                 break;
             case 'X':
                 this.setState({
                     flag: "play",
                     player: "X"
                 })
+                this.human = "X";
                 break;
             default:
                 if (this.state.player){
@@ -69,10 +115,6 @@ class App extends Component {
                 }
                 this.setState({ flag: "pick"})
         }
-
-    }
-
-    pickSide(){
 
     }
 
