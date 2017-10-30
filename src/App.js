@@ -39,6 +39,7 @@ class App extends Component {
     }
 
     checkWin(){
+        // returns trure when there is a win and false otherwise
         if(
             (this.played["one"] === "O" && this.played["two"] === "O" && this.played["three"] === "O") ||
             (this.played["four"] === "O" && this.played["five"] === "O" && this.played["six"] === "O") ||
@@ -50,8 +51,7 @@ class App extends Component {
             (this.played["three"] === "O" && this.played["five"] === "O" && this.played["seven"] === "O")
         ){
             console.log("player O wins");
-            this.newGame();
-            return false;
+            return true;
         }
         else if(
             (this.played["one"] === "X" && this.played["two"] === "X" && this.played["three"] === "X") ||
@@ -64,51 +64,51 @@ class App extends Component {
             (this.played["three"] === "X" && this.played["five"] === "X" && this.played["seven"] === "X")
         ){
             console.log("player X wins");
-            this.newGame();
-            return false;
+            return true;
         }
-        return true;
-
+        return false;
     }
 
     play(btn=""){
 
-        console.log("human: ", this.human)
         var player = this.state.player;
         var players = this.players;
-
-        console.log(btn, player);
 
         if (this.played[btn] !== ""){
             console.log("already checked")
         }else{
             this.played[btn] = player;
         }
-        if (this.checkWin()){
-            if (player === this.human){
-                if (player === players[0]){
-                    this.setState({
-                        player: players[1]
-                    });
-                }else{
-                    this.setState({
-                        player: players[0]
-                    });
-                }
-            }else{
-                if (player === players[0]){
-                    this.setState({
-                        player: players[1]
-                    });
-                }else{
-                    this.setState({
-                        player: players[0]
-                    });
-                }
-            }
+
+        if (player === players[0]){
+            this.setState({
+                player: players[1]
+            });
+        }else{
+            this.setState({
+                player: players[0]
+            });
         }
-        else{
+
+        if (this.checkWin()){
+            this.newGame();
             console.log("new game");
+        }else{
+            var played = this.played;
+            if (
+                played["one"] !== "" &&
+                played["two"] !== "" &&
+                played["three"] !== "" &&
+                played["four"] !== "" &&
+                played["five"] !== "" &&
+                played["six"] !== "" &&
+                played["seven"] !== "" &&
+                played["eight"] !== "" &&
+                played["nine"] !== ""
+            ){
+                this.newGame();
+                console.log("Issa draw")
+            }
         }
     }
 
