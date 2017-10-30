@@ -75,39 +75,39 @@ class App extends Component {
         var players = this.players;
 
         if (this.played[btn] !== ""){
-            console.log("already checked")
+            console.log("already checked, play again")
         }else{
             this.played[btn] = player;
-        }
 
-        if (player === players[0]){
-            this.setState({
-                player: players[1]
-            });
-        }else{
-            this.setState({
-                player: players[0]
-            });
-        }
+            if (player === players[0]){
+                this.setState({
+                    player: players[1]
+                });
+            }else{
+                this.setState({
+                    player: players[0]
+                });
+            }
 
-        if (this.checkWin()){
-            this.newGame();
-            console.log("new game");
-        }else{
-            var played = this.played;
-            if (
-                played["one"] !== "" &&
-                played["two"] !== "" &&
-                played["three"] !== "" &&
-                played["four"] !== "" &&
-                played["five"] !== "" &&
-                played["six"] !== "" &&
-                played["seven"] !== "" &&
-                played["eight"] !== "" &&
-                played["nine"] !== ""
-            ){
+            if (this.checkWin()){
                 this.newGame();
-                console.log("Issa draw")
+                console.log("new game");
+            }else{
+                var played = this.played;
+                if (
+                    played["one"] !== "" &&
+                    played["two"] !== "" &&
+                    played["three"] !== "" &&
+                    played["four"] !== "" &&
+                    played["five"] !== "" &&
+                    played["six"] !== "" &&
+                    played["seven"] !== "" &&
+                    played["eight"] !== "" &&
+                    played["nine"] !== ""
+                ){
+                    this.newGame();
+                    console.log("Issa draw")
+                }
             }
         }
     }
