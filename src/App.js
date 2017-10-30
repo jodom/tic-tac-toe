@@ -20,7 +20,7 @@ class App extends Component {
 
     componentDidUpdate(){
         if(this.human && this.state.player !== this.human){
-            this.aiMove();
+            setTimeout(() => {this.aiMove()}, 1000);
         }
     }
 
@@ -174,7 +174,7 @@ class App extends Component {
                             <div className="screen">
                                 {this.state.player === this.human?
                                     <span className="prompt active"></span>:
-                                    <span className=""></span>
+                                    <span className="prompt"></span>
                                 }
                                 <div className="player 1">
                                     <span id="player">You [ {this.human} ]</span>
