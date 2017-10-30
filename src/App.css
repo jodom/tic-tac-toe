@@ -28,30 +28,27 @@
     flex-flow: row;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
-
 .wrapper{
     height: 100%;
     width: 100%;
     display: flex;
     flex-flow: row wrap;
+    justify-content: center;
 }
-
 .picker{
     color: white;
 }
-
 .picker .Tile{
     margin: 0.3em;
     border-radius: 5px;
 }
-
 .Tile {
     height: 33.3333%;
     width: 33.3333%;
     border: 1px solid white;
 }
-
 button{
     background-color: transparent;
     border: none;
@@ -59,7 +56,6 @@ button{
     color: white;
     font-size: 3em;
 }
-
 #one, #two, #three{
     border-top: none;
 }
@@ -71,4 +67,41 @@ button{
 }
 #one, #four, #seven{
     border-left: none;
+}
+.screen{
+    position: absolute;
+    top: -2.3em;
+    height: 3em;
+    width: 80%;
+    background-color: white;
+    border: 0.5em solid black;
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: center;
+    padding: 0 5px 0 5px;
+}
+.player{
+    width: 50%;
+    display: flex;
+    align-items: center;
+    text-align: center;
+}
+#player{
+    flex-grow: 2;
+}
+#score{
+    font-size: 2em;
+    margin: 0 5px 0 5px;
+}
+.separator{
+    font-size: 2.5em;
+}
+.prompt{
+    border:3px solid rgba(50, 50, 50, 0.8);
+    border-radius: 50%;
+    height:10px;
+    width:10px;
+}
+.prompt.active{
+    background-color: greenyellow;
 }

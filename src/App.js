@@ -6,8 +6,7 @@ class App extends Component {
         super(props);
         this.state = {
             flag: "pick",
-            player: "",
-            scores: [0, 0]
+            player: ""
         }
         this.handleClick = this.handleClick.bind(this);
     }
@@ -15,6 +14,7 @@ class App extends Component {
     componentDidMount() {
         this.players = ["X","O"]
         this.human = "";
+        this.scores = [0, 0];
         this.newGame();
     }
 
@@ -51,6 +51,7 @@ class App extends Component {
             (this.played["three"] === "O" && this.played["five"] === "O" && this.played["seven"] === "O")
         ){
             console.log("player O wins");
+            this.scores[1] += 1;
             return true;
         }
         else if(
@@ -64,6 +65,7 @@ class App extends Component {
             (this.played["three"] === "X" && this.played["five"] === "X" && this.played["seven"] === "X")
         ){
             console.log("player X wins");
+            this.scores[0] += 1;
             return true;
         }
         return false;
@@ -169,6 +171,31 @@ class App extends Component {
                             <Tile id="O" onClick={this.handleClick} value="O"/>
                         </div>:
                         <div className="wrapper">
+                            <div className="screen">
+                                {this.state.player === this.human?
+                                    <span className="prompt active"></span>:
+                                    <span className=""></span>
+                                }
+                                <div className="player 1">
+                                    <span id="player">You [ {this.human} ]</span>
+                                    <span id="score">{this.human === 'X'? this.scores[0] : this.scores[1]}</span>
+                                </div>
+                                <span className="separator">:</span>
+                                {this.human === 'X'?
+                                    <div className="player 2">
+                                        <span id="score">{this.scores[1]}</span>
+                                        <span id="player">Computer [ O ]</span>
+                                    </div>:
+                                    <div className="player 2">
+                                        <span id="score">{this.scores[0]}</span>
+                                        <span id="player">Computer [ X ]</span>
+                                    </div>
+                                }
+                                {this.state.player !== this.human?
+                                    <span className="prompt active"></span>:
+                                    <span className="prompt"></span>
+                                }
+                            </div>
                             <Tile id="one"
                                 onClick={this.handleClick}
                                 value={this.played["one"]}
