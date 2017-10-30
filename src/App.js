@@ -15,6 +15,9 @@ class App extends Component {
         this.players = ["X","O"]
         this.human = "";
         this.scores = [0, 0];
+
+        this.current = []; //tracks moves for AI logic
+
         this.newGame();
     }
 
@@ -70,6 +73,8 @@ class App extends Component {
             "eight": "",
             "nine": ""
         }
+
+        this.current = [];
     }
 
     checkWin(){
@@ -109,11 +114,25 @@ class App extends Component {
 
         var player = this.state.player;
         var players = this.players;
+        
+        var reverse_mapping = {
+            "one": 1,
+            "two": 2,
+            "three": 3,
+            "four": 4,
+            "five": 5,
+            "six": 6,
+            "seven": 7,
+            "eight": 8,
+            "nine": 9
+        }
 
         if (this.played[btn] !== ""){
             console.log("already checked, play again")
         }else{
             this.played[btn] = player;
+
+            this.current.push(reverse_mapping[btn]); // track move
 
             if (player === players[0]){
                 this.setState({
@@ -128,7 +147,25 @@ class App extends Component {
     }
 
     aiMove(){
-        var guess = Math.floor(Math.random()*(10-1)+1);
+        // easy mode
+
+        // var guess = Math.floor(Math.random()*(10-1)+1);
+        // var mapping = {
+        //     1: "one",
+        //     2: "two",
+        //     3: "three",
+        //     4: "four",
+        //     5: "five",
+        //     6: "six",
+        //     7: "seven",
+        //     8: "eight",
+        //     9: "nine"
+        // }
+        // while(this.played[mapping[guess]] !== ""){
+        //     guess = Math.floor(Math.random()*(10-1)+1);
+        // }
+
+        //AI mode
         var mapping = {
             1: "one",
             2: "two",
@@ -140,11 +177,86 @@ class App extends Component {
             8: "eight",
             9: "nine"
         }
-        while(this.played[mapping[guess]] !== ""){
-            guess = Math.floor(Math.random()*(10-1)+1);
-        }
+        var guess = this.logic(this.current);
         this.play(mapping[guess]);
     }
+
+    // AI logic
+    logic(current){
+        var curr = current;
+        var starting = [1,3,5,7,9];
+        var corners = [1,3,7,9];
+        var board = [1,2,3,4,5,6,7,8,9];
+
+        // use an array data structure to track moves
+
+        if (curr.length === 0){ // MOVES :: frist: AI
+            return starting[this.random( starting.length )];
+        }
+
+        if( curr.length === 1){ // MOVES :: first: human, second: AI
+            if(curr[0] !== 5){
+                return 5;
+            }else{
+                return corners[this.random( corners.length )];
+            }
+        }
+
+        if(curr.length === 2){ // MOVES :: first: AI, second: human, third: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 3){ //MOVES :: first: human, second: AI, third: human, fourth: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 4){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 5){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 6){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 7){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI, seventh: human, eighth: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[this.random( board.length )]; // check for optimal move here
+        }
+
+        if (curr.length === 8){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI, eighth: human, ninth: AI
+            curr.forEach( (i) => {
+                board.splice( board.indexOf(i), 1); // remove marked places from board
+            });
+            return board[0]; // a draw
+        }
+    }
+
+    random(n){
+        return Math.floor(Math.random()*(n-0));
+    }
+
+    // end of AI logic
 
     handleClick(e){
         var btn = e.target.getAttribute('id');
