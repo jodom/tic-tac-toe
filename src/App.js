@@ -18,6 +18,12 @@ class App extends Component {
         this.newGame();
     }
 
+    componentDidUpdate(){
+        if(this.human && this.state.player !== this.human){
+            this.aiMove();
+        }
+    }
+
     newGame() {
         this.played = {
             "one": "",
@@ -45,6 +51,7 @@ class App extends Component {
         ){
             console.log("player O wins");
             this.newGame();
+            return false;
         }
         else if(
             (this.played["one"] === "X" && this.played["two"] === "X" && this.played["three"] === "X") ||
@@ -58,36 +65,70 @@ class App extends Component {
         ){
             console.log("player X wins");
             this.newGame();
+            return false;
         }
+        return true;
 
     }
 
-    play(btn){
+    play(btn=""){
+
+        console.log("human: ", this.human)
         var player = this.state.player;
         var players = this.players;
 
-        console.log(player);
+        console.log(btn, player);
 
-        this.played[btn] = player;
-        this.checkWin();
-        console.log(this.played)
-
-        if (player === players[0]){
-            this.setState({
-                player: players[1]
-            });
-        }else if(player === players[1]){
-            this.setState({
-                player: players[0]
-            });
+        if (this.played[btn] !== ""){
+            console.log("already checked")
+        }else{
+            this.played[btn] = player;
         }
-
+        if (this.checkWin()){
+            if (player === this.human){
+                if (player === players[0]){
+                    this.setState({
+                        player: players[1]
+                    });
+                }else{
+                    this.setState({
+                        player: players[0]
+                    });
+                }
+            }else{
+                if (player === players[0]){
+                    this.setState({
+                        player: players[1]
+                    });
+                }else{
+                    this.setState({
+                        player: players[0]
+                    });
+                }
+            }
+        }
+        else{
+            console.log("new game");
+        }
     }
 
-    checkLogic(){
-        if (this.state.player !== this.human){
-            //computers turn to play
+    aiMove(){
+        var guess = Math.floor(Math.random()*(10-1)+1);
+        var mapping = {
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+            5: "five",
+            6: "six",
+            7: "seven",
+            8: "eight",
+            9: "nine"
         }
+        while(this.played[mapping[guess]] !== ""){
+            guess = Math.floor(Math.random()*(10-1)+1);
+        }
+        this.play(mapping[guess]);
     }
 
     handleClick(e){
@@ -115,7 +156,6 @@ class App extends Component {
                 }
                 this.setState({ flag: "pick"})
         }
-
     }
 
     render() {
@@ -183,4 +223,5 @@ class Tile extends Component {
         )
     }
 }
+
 export default App;
