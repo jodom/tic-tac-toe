@@ -19,8 +19,42 @@ class App extends Component {
     }
 
     componentDidUpdate(){
-        if(this.human && this.state.player !== this.human){
-            setTimeout(() => {this.aiMove()}, 1000);
+
+        if (this.checkWin()){
+            this.newGame();
+            console.log("new game");
+
+            if(this.human && this.state.player !== this.human){
+                setTimeout(() => {this.aiMove()}, 1000);
+            }else{
+                setTimeout( () => {this.forceUpdate()}, 500);
+            }
+        }else{
+            var played = this.played;
+            if (
+                played["one"] !== "" &&
+                played["two"] !== "" &&
+                played["three"] !== "" &&
+                played["four"] !== "" &&
+                played["five"] !== "" &&
+                played["six"] !== "" &&
+                played["seven"] !== "" &&
+                played["eight"] !== "" &&
+                played["nine"] !== ""
+            ){
+                this.newGame();
+                console.log("Issa draw");
+
+                if(this.human && this.state.player !== this.human){
+                    setTimeout(() => {this.aiMove()}, 1000);
+                }else{
+                    setTimeout( () => {this.forceUpdate()}, 500);
+                }
+            }else{
+                if(this.human && this.state.player !== this.human){
+                    setTimeout(() => {this.aiMove()}, 1000);
+                }
+            }
         }
     }
 
@@ -89,27 +123,6 @@ class App extends Component {
                 this.setState({
                     player: players[0]
                 });
-            }
-
-            if (this.checkWin()){
-                this.newGame();
-                console.log("new game");
-            }else{
-                var played = this.played;
-                if (
-                    played["one"] !== "" &&
-                    played["two"] !== "" &&
-                    played["three"] !== "" &&
-                    played["four"] !== "" &&
-                    played["five"] !== "" &&
-                    played["six"] !== "" &&
-                    played["seven"] !== "" &&
-                    played["eight"] !== "" &&
-                    played["nine"] !== ""
-                ){
-                    this.newGame();
-                    console.log("Issa draw")
-                }
             }
         }
     }
