@@ -161,17 +161,21 @@ class App extends Component {
     aiMove(){
         // easy mode
 
-        // var guess = Math.floor(Math.random()*(10-1)+1);
-        // var mapping = this.mapping;
-        // while(this.played[mapping[guess]] !== ""){
-        //     guess = Math.floor(Math.random()*(10-1)+1);
-        // }
-        // this.play(mapping[guess]);
+        // var guess = this.chance([1,2,3,4,5,6,7,8,9]); // move bebecomes the guess
 
         //AI mode
         var mapping = this.mapping;
         var move = this.logic(this.current);
         this.play(mapping[move]);
+    }
+
+    chance(possible){
+        var guess = this.random( possible.length );
+        var mapping = this.mapping;
+        while(this.played[mapping[guess]] !== ""){
+            guess = guess = this.random( possible.length );
+        }
+        return guess;
     }
 
     // AI logic
@@ -256,23 +260,26 @@ class App extends Component {
     optima(choices){
 
         var curr = this.current;
+        var played = this.played;
+        var mapping = this.mapping;
 
         console.log(choices);
 
         if(choices.includes(1)){
             if (curr.includes(2) && curr.includes(3)){
-                if (this.strategy(2, 3)){
+                if (this.strategy(2, 3) && played[mapping[1]] === ""){
                     return 1;
                 }
             }
 
             if (curr.includes(4) && curr.includes(7)){
-                if (this.strategy(4, 7)){
+                if (this.strategy(4, 7) && played[mapping[1]] === ""){
+                    return 1;
                 }
             }
 
             if (curr.includes(5) && curr.includes(9)){
-                if (this.strategy(5, 9)){
+                if (this.strategy(5, 9) && played[mapping[1]] === ""){
                     return 1;
                 }
             }
@@ -281,13 +288,13 @@ class App extends Component {
 
         if(choices.includes(2)){
             if (curr.includes(1) && curr.includes(3)){
-                if (this.strategy(1, 3)){
+                if (this.strategy(1, 3) && played[mapping[2]] === ""){
                     return 2;
                 }
             }
 
             if (curr.includes(5) && curr.includes(8)){
-                if (this.strategy(5, 8)){
+                if (this.strategy(5, 8) && played[mapping[2]] === ""){
                     return 2;
                 }
             }
@@ -296,19 +303,19 @@ class App extends Component {
 
         if(choices.includes(3)){
             if (curr.includes(1) && curr.includes(2)){
-                if (this.strategy(1, 2)){
+                if (this.strategy(1, 2) && played[mapping[3]] === ""){
                     return 3;
                 }
             }
 
             if (curr.includes(5) && curr.includes(7)){
-                if (this.strategy(5, 7)){
+                if (this.strategy(5, 7) && played[mapping[3]] === ""){
                     return 3;
                 }
             }
 
             if (curr.includes(6) && curr.includes(9)){
-                if (this.strategy(6, 9)){
+                if (this.strategy(6, 9) && played[mapping[3]] === ""){
                     return 3;
                 }
             }
@@ -317,13 +324,13 @@ class App extends Component {
 
         if(choices.includes(4)){
             if (curr.includes(1) && curr.includes(7)){
-                if (this.strategy(1, 7)){
+                if (this.strategy(1, 7) && played[mapping[4]] === ""){
                     return 4;
                 }
             }
 
             if (curr.includes(5) && curr.includes(6)){
-                if (this.strategy(5, 6)){
+                if (this.strategy(5, 6) && played[mapping[4]] === ""){
                     return 4;
                 }
             }
@@ -332,25 +339,25 @@ class App extends Component {
 
         if(choices.includes(5)){
             if (curr.includes(1) && curr.includes(9)){
-                if (this.strategy(1, 9)){
+                if (this.strategy(1, 9) && played[mapping[5]] === ""){
                     return 5;
                 }
             }
 
             if (curr.includes(2) && curr.includes(8)){
-                if (this.strategy(2, 8)){
+                if (this.strategy(2, 8) && played[mapping[5]] === ""){
                     return 5;
                 }
             }
 
             if (curr.includes(3) && curr.includes(7)){
-                if (this.strategy(3, 7)){
+                if (this.strategy(3, 7) && played[mapping[5]] === ""){
                     return 5;
                 }
             }
 
             if (curr.includes(4) && curr.includes(6)){
-                if (this.strategy(4, 6)){
+                if (this.strategy(4, 6) && played[mapping[5]] === ""){
                     return 5;
                 }
             }
@@ -359,13 +366,13 @@ class App extends Component {
 
         if(choices.includes(6)){
             if (curr.includes(3) && curr.includes(9)){
-                if (this.strategy(3, 9)){
+                if (this.strategy(3, 9) && played[mapping[6]] === ""){
                     return 6;
                 }
             }
 
             if (curr.includes(4) && curr.includes(5)){
-                if (this.strategy(4, 5)){
+                if (this.strategy(4, 5) && played[mapping[6]] === ""){
                     return 6;
                 }
             }
@@ -374,19 +381,19 @@ class App extends Component {
 
         if(choices.includes(7)){
             if (curr.includes(1) && curr.includes(4)){
-                if (this.strategy(1, 4)){
+                if (this.strategy(1, 4) && played[mapping[7]] === ""){
                     return 7;
                 }
             }
 
             if (curr.includes(3) && curr.includes(5)){
-                if (this.strategy(3, 5)){
+                if (this.strategy(3, 5) && played[mapping[7]] === ""){
                     return 7;
                 }
             }
 
             if (curr.includes(8) && curr.includes(9)){
-                if (this.strategy(8, 9)){
+                if (this.strategy(8, 9) && played[mapping[7]] === ""){
                     return 7;
                 }
             }
@@ -395,13 +402,13 @@ class App extends Component {
 
         if(choices.includes(8)){
             if (curr.includes(2) && curr.includes(5)){
-                if (this.strategy(2, 5)){
+                if (this.strategy(2, 5) && played[mapping[8]] === ""){
                     return 8;
                 }
             }
 
             if (curr.includes(7) && curr.includes(9)){
-                if (this.strategy(7, 9)){
+                if (this.strategy(7, 9) && played[mapping[8]] === ""){
                     return 8;
                 }
             }
@@ -410,23 +417,26 @@ class App extends Component {
 
         if(choices.includes(9)){ // 9
             if (curr.includes(1) && curr.includes(5)){
-                if (this.strategy(1, 5)){
+                if (this.strategy(1, 5) && played[mapping[9]] === ""){
                     return 9;
                 }
             }
 
             if (curr.includes(3) && curr.includes(6)){
-                if (this.strategy(3, 6)){
+                if (this.strategy(3, 6) && played[mapping[9]] === ""){
                     return 9;
                 }
             }
 
             if (curr.includes(7) && curr.includes(8)){
-                if (this.strategy(7, 8)){
+                if (this.strategy(7, 8) && played[mapping[9]] === ""){
                     return 9;
                 }
             }
         }
+        // optima has failed:
+        return this.chance(choices);
+
     } // end of optima
 
     strategy(a, b){
