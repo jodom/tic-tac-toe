@@ -18,6 +18,18 @@ class App extends Component {
 
         this.current = []; //tracks moves for AI logic
 
+        this.mapping = {
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+            5: "five",
+            6: "six",
+            7: "seven",
+            8: "eight",
+            9: "nine"
+        }
+
         this.newGame();
     }
 
@@ -150,34 +162,14 @@ class App extends Component {
         // easy mode
 
         // var guess = Math.floor(Math.random()*(10-1)+1);
-        // var mapping = {
-        //     1: "one",
-        //     2: "two",
-        //     3: "three",
-        //     4: "four",
-        //     5: "five",
-        //     6: "six",
-        //     7: "seven",
-        //     8: "eight",
-        //     9: "nine"
-        // }
+        // var mapping = this.mapping;
         // while(this.played[mapping[guess]] !== ""){
         //     guess = Math.floor(Math.random()*(10-1)+1);
         // }
         // this.play(mapping[guess]);
 
         //AI mode
-        var mapping = {
-            1: "one",
-            2: "two",
-            3: "three",
-            4: "four",
-            5: "five",
-            6: "six",
-            7: "seven",
-            8: "eight",
-            9: "nine"
-        }
+        var mapping = this.mapping;
         var move = this.logic(this.current);
         this.play(mapping[move]);
     }
@@ -446,17 +438,7 @@ class App extends Component {
         }else{
             ai = 'X';
         }
-        var mapping = {
-            1: "one",
-            2: "two",
-            3: "three",
-            4: "four",
-            5: "five",
-            6: "six",
-            7: "seven",
-            8: "eight",
-            9: "nine"
-        }
+        var mapping = this.mapping;
         var played = this.played;
 
         if(
