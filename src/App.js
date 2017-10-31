@@ -428,6 +428,38 @@ class App extends Component {
             }
         }
 
+        // edge cases? avoid pending doom!
+        if (curr.length === 3){
+            var middles = [2, 4, 6, 8];
+
+            if (
+                this.strategy(1, 9, "defend") ||
+                this.strategy(3, 7, "defend")
+            ){
+                return middles[this.random( middles.length )];
+            }else if (
+                this.strategy(1, 8, "defend") &&
+                played[mapping[5]] === this.ai
+            ){
+                return [4, 6, 7][this.random( [4, 6, 7].length )];
+            }else if(
+                this.strategy(3, 8, "defend") &&
+                played[mapping[5]] === this.ai
+            ){
+                return [4, 6, 9][this.random( [4, 6, 9].length )];
+            }else if (
+                this.strategy(2, 7, "defend") &&
+                played[mapping[5]] === this.ai
+            ){
+                return [1, 4, 6][this.random( [1, 4, 6].length )];
+            }else if(
+                this.strategy(2, 9, "defend") &&
+                played[mapping[5]] === this.ai
+            ){
+                return [3, 4, 6][this.random( [3, 4, 6].length )];
+            }
+        }
+
     } // end of optima
 
     strategy(a, b, method){
