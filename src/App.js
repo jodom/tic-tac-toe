@@ -14,6 +14,7 @@ class App extends Component {
     componentDidMount() {
         this.players = ["X","O"]
         this.human = "";
+        this.ai = "";
         this.scores = [0, 0];
 
         this.current = []; //tracks moves for AI logic
@@ -39,7 +40,7 @@ class App extends Component {
             this.newGame();
             console.log("new game");
 
-            if(this.human && this.state.player !== this.human){
+            if(this.human && this.state.player === this.ai){
                 setTimeout(() => {this.aiMove()}, 1000);
             }else{
                 setTimeout( () => {this.forceUpdate()}, 500);
@@ -60,13 +61,13 @@ class App extends Component {
                 this.newGame();
                 console.log("Issa draw");
 
-                if(this.human && this.state.player !== this.human){
+                if(this.human && this.state.player === this.ai){
                     setTimeout(() => {this.aiMove()}, 1000);
                 }else{
                     setTimeout( () => {this.forceUpdate()}, 500);
                 }
             }else{
-                if(this.human && this.state.player !== this.human){
+                if(this.human && this.state.player === this.ai){
                     setTimeout(() => {this.aiMove()}, 1000);
                 }
             }
@@ -432,11 +433,7 @@ class App extends Component {
     strategy(a, b, method){
 
         var human  = this.human;
-        if (human === 'X'){
-            var ai = 'O';
-        }else{
-            ai = 'X';
-        }
+        var ai = this.ai;
         var mapping = this.mapping;
         var played = this.played;
 
@@ -471,6 +468,7 @@ class App extends Component {
                     player: "O"
                 })
                 this.human = "O";
+                this.ai = "X";
                 break;
             case 'X':
                 this.setState({
@@ -478,6 +476,7 @@ class App extends Component {
                     player: "X"
                 })
                 this.human = "X";
+                this.ai = "O";
                 break;
             default:
                 if (this.state.player){
@@ -519,7 +518,7 @@ class App extends Component {
                                         <span id="player">Computer [ X ]</span>
                                     </div>
                                 }
-                                {this.state.player !== this.human?
+                                {this.state.player === this.ai?
                                     <span className="prompt active"></span>:
                                     <span className="prompt"></span>
                                 }
