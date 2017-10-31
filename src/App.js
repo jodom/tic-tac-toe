@@ -222,39 +222,7 @@ class App extends Component {
 
         if( type === "attack"){
             // look for optimum attacking positions
-            if (curr.length === 3){ //MOVES :: first: human, second: AI, third: human, fourth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "attack");
-            }
-
-            if (curr.length === 4){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "attack");
-            }
-
-            if (curr.length === 5){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "attack");
-            }
-
-            if (curr.length === 6){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "attack");
-            }
-
-            if (curr.length === 7){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI, seventh: human, eighth: AI
+            if (curr.length >= 3 && curr.length <= 7){
                 curr.forEach( (i) => {
                     board.splice( board.indexOf(i), 1);
                 });
@@ -263,39 +231,7 @@ class App extends Component {
             }
         }else{
             // look for optimum defending positions
-            if (curr.length === 3){ //MOVES :: first: human, second: AI, third: human, fourth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "defend");
-            }
-
-            if (curr.length === 4){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "defend");
-            }
-
-            if (curr.length === 5){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "defend");
-            }
-
-            if (curr.length === 6){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI
-                curr.forEach( (i) => {
-                    board.splice( board.indexOf(i), 1);
-                });
-                console.log(curr.length, this.optima(board));
-                return this.optima(board, "defend");
-            }
-
-            if (curr.length === 7){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI, seventh: human, eighth: AI
+            if (curr.length >= 3 && curr.length <= 7){
                 curr.forEach( (i) => {
                     board.splice( board.indexOf(i), 1);
                 });
