@@ -164,6 +164,7 @@ class App extends Component {
         // while(this.played[mapping[guess]] !== ""){
         //     guess = Math.floor(Math.random()*(10-1)+1);
         // }
+        // this.play(mapping[guess]);
 
         //AI mode
         var mapping = {
@@ -177,8 +178,8 @@ class App extends Component {
             8: "eight",
             9: "nine"
         }
-        var guess = this.logic(this.current);
-        this.play(mapping[guess]);
+        var move = this.logic(this.current);
+        this.play(mapping[move]);
     }
 
     // AI logic
@@ -204,51 +205,267 @@ class App extends Component {
 
         if(curr.length === 2){ // MOVES :: first: AI, second: human, third: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+               board.splice( board.indexOf(i), 1); // remove marked places from board
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            // return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return board[this.random( board.length )];
         }
 
         if (curr.length === 3){ //MOVES :: first: human, second: AI, third: human, fourth: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return this.optima(board);
         }
 
         if (curr.length === 4){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return this.optima(board);
         }
 
         if (curr.length === 5){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return this.optima(board);
         }
 
         if (curr.length === 6){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return this.optima(board);
         }
 
         if (curr.length === 7){ //MOVES :: first: human, second: AI, third: human, fourth: AI, fifth: human, sixth: AI, seventh: human, eighth: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
-            return board[this.random( board.length )]; // check for optimal move here
+            console.log(curr.length, this.optima(board));
+            return this.optima(board);
         }
 
         if (curr.length === 8){ // MOVES :: first: AI, second: human, third: AI, fourth: human, fifth: AI, sixth: human, seventh: AI, eighth: human, ninth: AI
             curr.forEach( (i) => {
-                board.splice( board.indexOf(i), 1); // remove marked places from board
+                board.splice( board.indexOf(i), 1);
             });
             return board[0]; // a draw
+        }
+
+    }
+
+    optima(choices){
+
+        var curr = this.current;
+
+        console.log(choices);
+
+        if(choices.includes(1)){
+            if (curr.includes(2) && curr.includes(3)){
+                if (this.strategy(2, 3)){
+                    return 1;
+                }
+            }
+
+            if (curr.includes(4) && curr.includes(7)){
+                if (this.strategy(4, 7)){
+                }
+            }
+
+            if (curr.includes(5) && curr.includes(9)){
+                if (this.strategy(5, 9)){
+                    return 1;
+                }
+            }
+
+        }
+
+        if(choices.includes(2)){
+            if (curr.includes(1) && curr.includes(3)){
+                if (this.strategy(1, 3)){
+                    return 2;
+                }
+            }
+
+            if (curr.includes(5) && curr.includes(8)){
+                if (this.strategy(5, 8)){
+                    return 2;
+                }
+            }
+
+        }
+
+        if(choices.includes(3)){
+            if (curr.includes(1) && curr.includes(2)){
+                if (this.strategy(1, 2)){
+                    return 3;
+                }
+            }
+
+            if (curr.includes(5) && curr.includes(7)){
+                if (this.strategy(5, 7)){
+                    return 3;
+                }
+            }
+
+            if (curr.includes(6) && curr.includes(9)){
+                if (this.strategy(6, 9)){
+                    return 3;
+                }
+            }
+
+        }
+
+        if(choices.includes(4)){
+            if (curr.includes(1) && curr.includes(7)){
+                if (this.strategy(1, 7)){
+                    return 4;
+                }
+            }
+
+            if (curr.includes(5) && curr.includes(6)){
+                if (this.strategy(5, 6)){
+                    return 4;
+                }
+            }
+
+        }
+
+        if(choices.includes(5)){
+            if (curr.includes(1) && curr.includes(9)){
+                if (this.strategy(1, 9)){
+                    return 5;
+                }
+            }
+
+            if (curr.includes(2) && curr.includes(8)){
+                if (this.strategy(2, 8)){
+                    return 5;
+                }
+            }
+
+            if (curr.includes(3) && curr.includes(7)){
+                if (this.strategy(3, 7)){
+                    return 5;
+                }
+            }
+
+            if (curr.includes(4) && curr.includes(6)){
+                if (this.strategy(4, 6)){
+                    return 5;
+                }
+            }
+
+        }
+
+        if(choices.includes(6)){
+            if (curr.includes(3) && curr.includes(9)){
+                if (this.strategy(3, 9)){
+                    return 6;
+                }
+            }
+
+            if (curr.includes(4) && curr.includes(5)){
+                if (this.strategy(4, 5)){
+                    return 6;
+                }
+            }
+
+        }
+
+        if(choices.includes(7)){
+            if (curr.includes(1) && curr.includes(4)){
+                if (this.strategy(1, 4)){
+                    return 7;
+                }
+            }
+
+            if (curr.includes(3) && curr.includes(5)){
+                if (this.strategy(3, 5)){
+                    return 7;
+                }
+            }
+
+            if (curr.includes(8) && curr.includes(9)){
+                if (this.strategy(8, 9)){
+                    return 7;
+                }
+            }
+
+        }
+
+        if(choices.includes(8)){
+            if (curr.includes(2) && curr.includes(5)){
+                if (this.strategy(2, 5)){
+                    return 8;
+                }
+            }
+
+            if (curr.includes(7) && curr.includes(9)){
+                if (this.strategy(7, 9)){
+                    return 8;
+                }
+            }
+
+        }
+
+        if(choices.includes(9)){ // 9
+            if (curr.includes(1) && curr.includes(5)){
+                if (this.strategy(1, 5)){
+                    return 9;
+                }
+            }
+
+            if (curr.includes(3) && curr.includes(6)){
+                if (this.strategy(3, 6)){
+                    return 9;
+                }
+            }
+
+            if (curr.includes(7) && curr.includes(8)){
+                if (this.strategy(7, 8)){
+                    return 9;
+                }
+            }
+        }
+    } // end of optima
+
+    strategy(a, b){
+        // game strategy:  attack to win, if fails, then defend
+
+        var human  = this.human;
+        if (human === 'X'){
+            var ai = 'O';
+        }else{
+            ai = 'X';
+        }
+        var mapping = {
+            1: "one",
+            2: "two",
+            3: "three",
+            4: "four",
+            5: "five",
+            6: "six",
+            7: "seven",
+            8: "eight",
+            9: "nine"
+        }
+        var played = this.played;
+
+        if(
+            (played[mapping[a]] === ai && played[mapping[b]] === ai) ||  // win
+            (played[mapping[a]] === human && played[mapping[b]] === human) // defend
+        ) {
+            return true;
+        }else{
+            return false;
         }
     }
 
